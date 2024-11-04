@@ -1,0 +1,20 @@
+---
+version: '3.3'
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: pgvector-db
+    environment:
+      - POSTGRES_DB=${POSTGRES_DBNAME}
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - ${POSTGRES_PORT}:5432
+    networks:
+      - pgvector-db
+networks:
+  pgvector-db:
+    name: pgvector-db
+    driver: bridge
